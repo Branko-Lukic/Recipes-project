@@ -1,0 +1,23 @@
+.filter {
+  min-width: 270px;
+  border: 3px solid green;
+  position: relative;
+  transition: min-width 0.5s;
+}
+
+.close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-size: 25px;
+}
+.open {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  font-size: 25px;
+}
+
+.filterClosed {
+  min-width: 0;
+}

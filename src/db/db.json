@@ -1,0 +1,106 @@
+{
+  "users": [
+    {
+      "id": 235234,
+      "username": "bane",
+      "password": "lalala13",
+      "favourites": [],
+      "added": []
+    },
+    {
+      "id": 235234,
+      "username": "branko",
+      "password": "lalala13",
+      "favourites": [],
+      "added": []
+    },
+    {
+      "id": 235234,
+      "username": "balaban",
+      "password": "lalala13",
+      "favourites": [],
+      "added": []
+    }
+  ],
+  "recipes": [
+    {
+      "id": 135134,
+      "name": "Baklava",
+      "addedBy": "bane",
+      "rating": [3, 5, 4],
+      "timesFavoured": 0,
+      "requiredTime": 45,
+      "ingredients": [],
+      "desc": "",
+      "img": "",
+      "preparation": ["", ""],
+      "comments": []
+    },
+
+    {
+      "id": 235134,
+      "name": "Pasulj",
+      "addedBy": "bane",
+      "rating": [3, 5, 4],
+      "timesFavoured": 0,
+      "requiredTime": 15,
+      "ingredients": [],
+      "desc": "",
+      "img": "",
+      "preparation": ["", ""],
+      "comments": []
+    },
+    {
+      "id": 335134,
+      "name": "Burek",
+      "addedBy": "bane",
+      "rating": [3, 5, 4],
+      "timesFavoured": 0,
+      "requiredTime": 35,
+      "ingredients": [],
+      "desc": "",
+      "img": "",
+      "preparation": ["", ""],
+      "comments": []
+    },
+    {
+      "id": 435134,
+      "name": "Pasulj sa rebrima",
+      "addedBy": "bane",
+      "rating": [3, 5, 4],
+      "timesFavoured": 0,
+      "requiredTime": 20,
+      "ingredients": [],
+      "desc": "",
+      "img": "",
+      "preparation": ["", ""],
+      "comments": []
+    },
+    {
+      "id": 535134,
+      "name": "Pita sa jabukama",
+      "addedBy": "bane",
+      "rating": [3, 5, 4],
+      "timesFavoured": 0,
+      "requiredTime": 55,
+      "ingredients": [],
+      "desc": "",
+      "img": "",
+      "preparation": ["", ""],
+      "comments": []
+    },
+    {
+      "id": 635134,
+      "name": "Pica mala",
+      "addedBy": "bane",
+      "rating": [3, 5, 4],
+      "timesFavoured": 0,
+      "requiredTime": 15,
+      "ingredients": [],
+      "desc": "",
+      "img": "",
+      "preparation": ["", ""],
+      "comments": []
+    }
+  ]
+}

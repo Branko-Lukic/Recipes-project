@@ -1,0 +1,76 @@
+.container {
+  width: 100%;
+}
+
+.containerr {
+  border-radius: 10px;
+  width: 31%;
+  height: auto;
+  position: relative;
+  margin-bottom: 3%;
+  min-width: 250px;
+  cursor: pointer;
+}
+
+img {
+  width: 100%;
+  transition: transform 0.5s;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.containerr:hover img {
+  transform: scale(1.03);
+}
+
+.favBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 18px;
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  z-index: 1;
+}
+.favBtn:hover {
+  background-color: rgb(216, 0, 0);
+}
+
+.favBtnClick {
+  fill: white;
+}
+
+.text {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+}
+
+.name {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 0 4px;
+  padding-bottom: 3px;
+}
+.upperText {
+  background-color: white;
+  display: inline;
+  font-size: 14.5px;
+}
+
+.upperText span {
+  padding: 0px 5px;
+  border-right: 1px solid gainsboro;
+}
+
+.clock {
+  font-size: 14px;
+
+  padding-top: 1px;
+}
