@@ -2,7 +2,7 @@
   min-width: 270px;
   border: 3px solid green;
   position: relative;
-  transition: min-width 0.5s;
+  transition: min-width 0.3s;
 }
 
 .close {

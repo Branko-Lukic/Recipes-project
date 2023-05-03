@@ -1,0 +1,12 @@
+.favourites {
+  width: 80%;
+  height: 30vh;
+  border: 1px solid rgb(0, 255, 64);
+  margin-bottom: 50px;
+}
+.added {
+  width: 80%;
+
+  height: 30vh;
+  border: 1px solid rgb(249, 2, 2);
+}

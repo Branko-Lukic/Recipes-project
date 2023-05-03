@@ -11,9 +11,9 @@ const Navbar = () => {
         <h1 onClick={() => navigate(`/`)}> Be Recipe</h1>
         <SearchBar />
         <div className={styles.logInReg}>
-          <span onClick={() => navigate(`/register`)}>Sign up</span>
+          <span onClick={() => navigate(`/signup`)}>Sign up</span>
           <span onClick={() => navigate(`/login`)}>Login</span>
-          <span onClick={() => navigate(`/profile`)}>Profile</span>
+          <span onClick={() => navigate(`/profile/overview`)}>Profile</span>
           <span onClick={() => navigate(`/`)}>Logout</span>
         </div>
       </div>

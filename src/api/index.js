@@ -1,3 +1,5 @@
+// ................... Recipes .............................
+
 export const getAllRecipes = () => {
   return fetch(`http://localhost:8000/recipes`).then((res) => res.json());
 };
@@ -22,3 +24,5 @@ export const getRecipeById = (id) => {
     res.json()
   );
 };
+
+// ................... Auth .............................
