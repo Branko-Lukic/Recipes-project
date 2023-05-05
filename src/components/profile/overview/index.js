@@ -7,7 +7,9 @@ export const Overview = () => {
   console.log(currentUser);
   return (
     <>
+      <h3>Favourites</h3>
       <div className={styles.favourites}></div>
+      <h3>My recipes</h3>
       <div className={styles.added}></div>
     </>
   );

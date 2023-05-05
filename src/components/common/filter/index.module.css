@@ -1,7 +1,9 @@
 .filter {
+  position: sticky;
+  top: 10vh;
   min-width: 270px;
+  height: 85vh;
   border: 3px solid green;
-  position: relative;
   transition: min-width 0.3s;
 }
 

@@ -16,19 +16,6 @@ export const LogIn = () => {
 
   console.log(currentUser);
 
-  // useEffect(() => {
-  //   console.log(21122);
-
-  //   // console.log(21122);
-
-  //   const userRef = doc(db, `users`, auth?.currentUser?.uid);
-  //   getDoc(userRef)
-  //     .then((currUser) => dispatch(setCurrentUser(currUser.data())))
-  //     .then(() => {
-  //       console.log(currentUser);
-  //     });
-  // }, []);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

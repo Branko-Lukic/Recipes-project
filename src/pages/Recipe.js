@@ -11,6 +11,9 @@ import {
   finishLoading,
   setError,
 } from "../store/reducers/recipesSlice";
+import { Filter } from "../components/common/filter";
+import { PageLayout } from "../components/common/pageLayout";
+import { ContentLayout } from "../components/common/contentLayout";
 
 export const Recipe = () => {
   const dispatch = useDispatch();
@@ -34,17 +37,21 @@ export const Recipe = () => {
   }, [location.search]);
 
   return (
-    <div>
+    <>
       <Navbar />
-
-      {loading ? (
-        <div style={{ marginTop: "200px" }}>
-          <ClipLoader color="#36d7b7" />
-        </div>
-      ) : (
-        <SingleRecipe selectedRecipe={selectedRecipe}></SingleRecipe>
-      )}
-      {error && <div style={{ marginTop: "200px" }}>{error}</div>}
-    </div>
+      <PageLayout>
+        <Filter />
+        <ContentLayout>
+          {loading ? (
+            <div style={{ marginTop: "200px" }}>
+              <ClipLoader color="#36d7b7" />
+            </div>
+          ) : (
+            <SingleRecipe selectedRecipe={selectedRecipe}></SingleRecipe>
+          )}
+          {error && <div style={{ marginTop: "200px" }}>{error}</div>}
+        </ContentLayout>
+      </PageLayout>
+    </>
   );
 };
