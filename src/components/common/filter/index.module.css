@@ -2,9 +2,10 @@
   position: sticky;
   top: 10vh;
   min-width: 270px;
-  height: 85vh;
+  height: 90vh;
   border: 3px solid green;
   transition: min-width 0.3s;
+  background-color: white;
 }
 
 .close {

@@ -6,8 +6,10 @@ import { FiHeart } from "react-icons/fi";
 import { TbChefHat } from "react-icons/tb";
 import { GiKnifeFork } from "react-icons/gi";
 import { FaUserCircle } from "react-icons/fa";
+import { getRecipeById } from "../../../api";
 
 export const SingleRecipe = ({ selectedRecipe }) => {
+  // getRecipeById(param).then((res)=>dispatch(setSelected(res))) BITNO ...
   return (
     <>
       <div className={styles.wrapper}>
