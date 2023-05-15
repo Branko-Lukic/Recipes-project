@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  added: [],
-  favourites: [],
+  // added: [],
+  // favourites: [],
   filtered: [],
   selected: {},
   loading: false,

@@ -5,7 +5,7 @@ import Prewiew from "../../../img/slika1.webp";
 import { BsClock } from "react-icons/bs";
 import { FiHeart } from "react-icons/fi";
 
-export const RecipePreview = ({ name, id, addedBy, time }) => {
+export const RecipePreview = ({ name, id, addedBy, time, imgURL }) => {
   const [isAddedToFav, setIsAddedToFav] = useState(false);
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ export const RecipePreview = ({ name, id, addedBy, time }) => {
         onClick={() => navigate(`/recipe?recipeId=${id}`)}
         className={styles.container}
       >
-        <img src={Prewiew} alt={"Prewiew image"} />
+        <img src={imgURL} alt={"Prewiew image"} />
         <div className={styles.text}>
           <div className={styles.upperText}>
             <span>{addedBy}</span>

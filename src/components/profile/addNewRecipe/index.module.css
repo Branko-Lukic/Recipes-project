@@ -91,7 +91,7 @@ textarea {
 .body {
   display: flex;
   gap: 10%;
-  margin-bottom: 40px;
+  margin-bottom: 90px;
 }
 
 .prepCont {
@@ -106,7 +106,7 @@ textarea {
 .ingRow {
   display: flex;
   gap: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .prepRow {
@@ -114,7 +114,7 @@ textarea {
   /* justify-content: center; */
   /* align-items: top; */
   gap: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .prepRow span {
@@ -172,4 +172,14 @@ textarea {
 
 .AddBtn:hover {
   background-color: rgb(232, 232, 232);
+}
+
+.divPublish {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.divPublish button {
+  padding: 9px 15px;
+  font-size: 1.1rem;
 }

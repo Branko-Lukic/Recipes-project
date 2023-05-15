@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
 import { MdTune } from "react-icons/md";
+import Multiselect from "multiselect-react-dropdown";
+import { getIngredientTags } from "../../../api";
 
-export const Filter = () => {
+export const Filter = ({ filterData }) => {
   const [filterActive, setFilterActive] = useState(false);
   const [openBtnActive, setOpenBtnActive] = useState(true);
 
@@ -13,7 +15,12 @@ export const Filter = () => {
     setTimeout(() => {
       setOpenBtnActive(!openBtnActive);
     }, 300);
+    filterData && filterData(!filterActive);
   };
+
+  useEffect(() => {
+    getIngredientTags();
+  }, []);
 
   return (
     <div className={`${styles.filter} ${toggleFilter}`}>
@@ -25,6 +32,8 @@ export const Filter = () => {
           <MdTune />
         </span>
       )}
+
+      {/* <Multiselect /> */}
     </div>
   );
 };

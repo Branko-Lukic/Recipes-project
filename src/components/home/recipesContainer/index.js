@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
 import { RecipePreview } from "../recipePreview";
 import { useDispatch, useSelector } from "react-redux";
 
-export const RecipesContainer = ({ searchedRecipes }) => {
+export const RecipesContainer = ({ searchedRecipes, filterProp }) => {
   const renderRecipePreviews = () =>
     searchedRecipes.map((rec) => (
-      <RecipePreview key={rec.id} name={rec.name} addedBy={rec.addedBy} time={rec.requiredTime} id={rec.id} />
+      <RecipePreview
+        key={rec.id}
+        imgURL={rec.imgURL}
+        name={rec.name}
+        addedBy={rec.addedBy}
+        time={rec.requiredTime}
+        id={rec.id}
+      />
     ));
 
-  return <div className={styles.container}>{renderRecipePreviews()}</div>;
+  const filterActive = filterProp
+    ? styles.containerFilterActive
+    : styles.container;
+
+  // console.log(filterProp);
+
+  return <div className={filterActive}>{renderRecipePreviews()}</div>;
 };

@@ -25,14 +25,25 @@ export const Home = () => {
         });
   }, [location.search]);
 
+  //...............
+  const [filterState, setFilterState] = useState(false);
+  const handleFilterState = (data) => {
+    setFilterState(data);
+  };
+  // console.log(filterState);
+
   return (
     <>
       <Navbar />
       <PageLayout>
-        <Filter />
+        <Filter filterData={handleFilterState} />
+        {/* <Filter /> */}
         <ContentLayout>
           {recipes.filtered.length > 0 ? (
-            <RecipesContainer searchedRecipes={recipes.filtered} />
+            <RecipesContainer
+              filterProp={filterState}
+              searchedRecipes={recipes.filtered}
+            />
           ) : (
             <div style={{ marginTop: "200px" }}>
               Nijesmo nasli nista za tu pretragu.

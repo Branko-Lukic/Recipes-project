@@ -3,94 +3,46 @@ import styles from "./index.module.css";
 
 import { useUploadImage } from "./hooks/useUploadImage";
 import { useManageRows } from "./hooks/useManageRows";
+import { useRowsStateUpdate } from "./hooks/useRowsStateUpdate";
+import { db } from "../../../firebase/config";
+import {
+  collection,
+  addDoc,
+  doc,
+  getDocs,
+  setDoc,
+  serverTimestamp,
+} from "firebase/firestore";
+import { useSelector } from "react-redux";
+import { createNewRecipe } from "../../../api";
 
 export const AddNewRecipe = () => {
+  // const error = useSelector((state) => state.recipes.error);
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  // console.log(currentUser.username);
+
   const [imageURL, setImageUpload] = useUploadImage();
   const [
     { ingRow, prepStep },
     { addNewIngRow, deleteIngRow, addNewPrepStep, deletePrepStep },
   ] = useManageRows();
+
+  const [
+    { ings, setIngs },
+    { ingTags, setIngTags },
+    { prepSteps, setPrepSteps },
+    rowsStateUpdate,
+  ] = useRowsStateUpdate();
+
+  const ingredients = ings.map((ing) => ing.text);
+  const ingredientTags = ingTags.map((ingTag) => ingTag.text);
+  const preparationSteps = prepSteps.map((prepStep) => prepStep.text);
+
   const [title, setTitle] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [time, setTime] = useState("");
   const [servings, setServings] = useState("");
   const [description, setDescription] = useState("");
-  const [ings, setIngs] = useState([]);
-  const [ingTags, setIngTags] = useState([]);
-  const [prepSteps, setPrepSteps] = useState([]);
-
-  console.log(ings);
-  console.log(ingTags);
-  console.log(prepStep);
-
-  const rowsStateUpdate = (rowType, id, e) => {
-    switch (rowType) {
-      case "INGS":
-        {
-          const includes = ings.some((ing) => ing.id === id);
-          if (includes) {
-            const newIngs = ings.map((ing) =>
-              ing.id === id ? { id, text: e.target.value } : ing
-            );
-            setIngs(newIngs);
-          } else {
-            setIngs([
-              ...ings,
-              {
-                id,
-                text: e.target.value,
-              },
-            ]);
-          }
-        }
-
-        break;
-      case "INGS-TAGS":
-        {
-          const includes = ingTags.some((ing) => ing.id === id);
-          if (includes) {
-            const newingsTags = ingTags.map((ing) =>
-              ing.id === id ? { id, text: e.target.value } : ing
-            );
-            setIngTags(newingsTags);
-          } else {
-            setIngTags([
-              ...ingTags,
-              {
-                id,
-                text: e.target.value,
-              },
-            ]);
-          }
-        }
-
-        break;
-
-      case "PREP-STEPS":
-        {
-          const includes = prepSteps.some((prep) => prep.id === id);
-          if (includes) {
-            const newSteps = prepSteps.map((prep) => {
-              console.log(e.target.value);
-              console.log(id);
-              return prep.id === id ? { id, text: e.target.value } : prep;
-            });
-            console.log(newSteps);
-            setPrepSteps(() => [...newSteps]);
-          } else {
-            setPrepSteps((prevPrepSteps) => {
-              console.log(e.target.value);
-              return [...prevPrepSteps, { id, text: e.target.value }];
-            });
-          }
-        }
-
-        break;
-
-      default:
-        break;
-    }
-  };
 
   return (
     <>
@@ -112,12 +64,13 @@ export const AddNewRecipe = () => {
                 <span>Difficulty level</span>
                 <select
                   onChange={(e) => {
-                    setTitle(e.target.value);
+                    setDifficulty(e.target.value);
                   }}
                 >
-                  <option value="0">Easy</option>
-                  <option value="1">More effort</option>
-                  <option value="2">A challenge</option>
+                  <option value=""></option>
+                  <option value="Easy">Easy</option>
+                  <option value="More effort">More effort</option>
+                  <option value="A challenge">A challenge</option>
                 </select>
               </div>
               <div>
@@ -140,7 +93,11 @@ export const AddNewRecipe = () => {
               </div>
             </div>
             <div>
-              <textarea type="text" placeholder="Description" />
+              <textarea
+                onChange={(e) => setDescription(e.target.value)}
+                type="text"
+                placeholder="Description"
+              />
             </div>
           </div>
           <div className={styles.imgCont}>
@@ -187,7 +144,12 @@ export const AddNewRecipe = () => {
                     className={styles.closeIngBtn}
                     onClick={() => {
                       const newIngs = ings.filter((ing) => ing.id !== id);
+                      const newIngTags = ingTags.filter(
+                        (ingTag) => ingTag.id !== id
+                      );
                       setIngs(newIngs);
+                      setIngTags(newIngTags);
+
                       deleteIngRow(id);
                     }}
                   >
@@ -216,7 +178,14 @@ export const AddNewRecipe = () => {
                 {i !== 0 && (
                   <button
                     className={styles.closePrepBtn}
-                    onClick={() => deletePrepStep(id)}
+                    onClick={() => {
+                      const newPrepSteps = prepSteps.filter(
+                        (step) => step.id !== id
+                      );
+                      setPrepSteps(newPrepSteps);
+
+                      deletePrepStep(id);
+                    }}
                   >
                     &times;
                   </button>
@@ -226,9 +195,34 @@ export const AddNewRecipe = () => {
             <button className={styles.AddBtn} onClick={addNewPrepStep}>
               Add next step
             </button>
-
-            <button onClick={() => {}}>Publish recipe</button>
           </div>
+        </div>
+        <div className={styles.divPublish}>
+          <button
+            onClick={() =>
+              createNewRecipe(
+                title,
+                currentUser.username,
+                time,
+                difficulty,
+                servings,
+                description,
+                imageURL,
+                ingredients,
+                ingredientTags,
+                preparationSteps,
+                (() => {
+                  const currentDate = new Date();
+                  const day = currentDate.getDate();
+                  const month = currentDate.getMonth() + 1;
+                  const year = currentDate.getFullYear();
+                  return `${day}.${month}.${year}`;
+                })()
+              )
+            }
+          >
+            Publish recipe
+          </button>
         </div>
       </div>
     </>

@@ -17,6 +17,7 @@ function SearchBar() {
     setLoading(true);
 
     getRecipesByName(value).then((res) => {
+      // console.log(res);
       setLoading(false);
       setResults(res);
       // setShowResults(true);
@@ -37,7 +38,8 @@ function SearchBar() {
       <div className={styles.searchWrapper}>
         <div className={styles.inputWrapper}>
           <FaSearch id="search-icon" className={styles.searchIcon} />
-          <input className={styles.input}
+          <input
+            className={styles.input}
             type="search"
             placeholder="Search"
             value={input}
@@ -46,7 +48,11 @@ function SearchBar() {
             onBlur={handleOnBlur}
           />
         </div>
-        <button className={styles.button} disabled={results.length === 0} onClick={handleSearch}>
+        <button
+          className={styles.button}
+          disabled={results.length === 0}
+          onClick={handleSearch}
+        >
           Search
         </button>
       </div>
