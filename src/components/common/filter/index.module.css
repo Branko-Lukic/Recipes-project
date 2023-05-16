@@ -1,4 +1,4 @@
-.filter {
+/* .filter {
   position: sticky;
   top: 10vh;
   min-width: 270px;
@@ -23,4 +23,86 @@
 
 .filterClosed {
   min-width: 0;
+} */
+
+/* .................................. */
+.filter {
+  position: sticky;
+  top: 10vh;
+  left: 0px;
+  min-width: 270px;
+  max-width: 270px;
+  height: 90vh;
+  border: 3px solid green;
+  /* transition: left 0.4s; */
+  background-color: white;
+  /* padding-top: 50px; */
+}
+
+.close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-size: 25px;
+}
+.open {
+  position: absolute;
+  left: 300px;
+  top: 15px;
+  font-size: 25px;
+}
+
+.filterClosed {
+  /* transform: translateX(-300px); */
+  position: fixed;
+  left: -270px;
+}
+
+.ingTagsContainer,
+.timeContainer,
+.difficultyContainer,
+.servingsContainer {
+  margin-top: 60px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  /* border: 1px solid green;
+  height: 200px; */
+
+  /* color: rgb(101, 101, 101); */
+}
+
+/* .multiselectContainer input {
+  width: 50%;
+} */
+
+.multiselectContainer ul li .option {
+  font-size: 2rem;
+}
+
+.btnContainer {
+  margin-top: 60px;
+  text-align: center;
+  /* width: 70%; */
+}
+
+.filterBtn {
+  padding: 5px 25px;
+  margin-left: 20px;
+  border: 3px solid rgb(220, 0, 0);
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+  /* font-weight: bold; */
+}
+
+.resetBtn {
+  padding: 2px 3px;
+  border: 2px solid rgb(131, 131, 131);
+}
+
+.searchIcon {
+  color: rgb(104, 125, 187);
+  position: relative;
+  left: 160px;
+  top: -30px;
 }

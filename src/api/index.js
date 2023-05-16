@@ -35,6 +35,13 @@ export const getIngredientTags = () => {
   return getDocs(recipesCollectionRef)
     .then((data) => data.docs.map((doc) => ({ ...doc.data().ingTags })))
     .then((res) => [...new Set(res.flatMap((item) => Object.values(item)))]);
+  // .then((res) => {
+  //   const a = [];
+  //   res.forEach((tag, i) => {
+  //     a.push({ name: tag, id: i });
+  //   });
+  //   return a;
+  // });
 };
 
 export const createNewRecipe = (

@@ -1,5 +1,11 @@
+/* .layout {
+  display: flex;
+  border: 5px solid blue;
+} */
+
 .layout {
   display: flex;
   border: 5px solid blue;
+
   /* margin-top: 65px; */
 }

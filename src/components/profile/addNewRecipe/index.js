@@ -4,15 +4,15 @@ import styles from "./index.module.css";
 import { useUploadImage } from "./hooks/useUploadImage";
 import { useManageRows } from "./hooks/useManageRows";
 import { useRowsStateUpdate } from "./hooks/useRowsStateUpdate";
-import { db } from "../../../firebase/config";
-import {
-  collection,
-  addDoc,
-  doc,
-  getDocs,
-  setDoc,
-  serverTimestamp,
-} from "firebase/firestore";
+// import { db } from "../../../firebase/config";
+// import {
+//   collection,
+//   addDoc,
+//   doc,
+//   getDocs,
+//   setDoc,
+//   serverTimestamp,
+// } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { createNewRecipe } from "../../../api";
 

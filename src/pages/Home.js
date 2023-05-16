@@ -3,7 +3,7 @@ import Navbar from "../components/common/nav";
 import { useLocation } from "react-router-dom";
 import { RecipesContainer } from "../components/home/recipesContainer";
 import { useDispatch, useSelector } from "react-redux";
-import { filterRecipes } from "../store/reducers/recipesSlice";
+import { filterRecipes, setSearchParam } from "../store/reducers/recipesSlice";
 import { getRecipesByName, getAllRecipes } from "../api";
 import { Filter } from "../components/common/filter";
 import { PageLayout } from "../components/common/pageLayout";
@@ -24,6 +24,10 @@ export const Home = () => {
           dispatch(filterRecipes(res));
         });
   }, [location.search]);
+
+  useEffect(() => {
+    dispatch(setSearchParam(""));
+  }, []);
 
   //...............
   const [filterState, setFilterState] = useState(false);

@@ -9,7 +9,7 @@ import { FaUserCircle } from "react-icons/fa";
 // import { getRecipeById } from "../../../api";
 
 export const SingleRecipe = ({ selectedRecipe }) => {
-  console.log(selectedRecipe);
+  // console.log(selectedRecipe);
   // getRecipeById(param).then((res)=>dispatch(setSelected(res))) BITNO ...
   return (
     <>

@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  filterParams: {},
+  searchParam: "",
   // added: [],
   // favourites: [],
   filtered: [],
@@ -28,6 +30,12 @@ const recipesSlice = createSlice({
     addSelected(state, action) {
       state.selected = action.payload;
     },
+    setFilterParams(state, action) {
+      state.filterParams = action.payload;
+    },
+    setSearchParam(state, action) {
+      state.searchParam = action.payload;
+    },
   },
 });
 export const {
@@ -36,5 +44,7 @@ export const {
   finishLoading,
   startLoading,
   addSelected,
+  setFilterParams,
+  setSearchParam,
 } = recipesSlice.actions;
 export default recipesSlice.reducer;
