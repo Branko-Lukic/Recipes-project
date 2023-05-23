@@ -37,7 +37,7 @@ export const Filter = ({ filterData }) => {
   ];
   const difficultyArr = ["Easy", "More effort", "A challenge"];
   const servingsArr = [
-    "1 servings",
+    "1 serving",
     "2 servings",
     "3 servings",
     "4 servings",
@@ -87,7 +87,10 @@ export const Filter = ({ filterData }) => {
     dispatch(setFilterParams(params));
 
     const filterQueryString = Object.entries(params)
-      .map(([key, value]) => `${key}=${value}`)
+      .map(
+        ([key, value]) =>
+          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+      )
       .join("&");
 
     navigate(`/?search=${searchParam}&${filterQueryString}`);
@@ -124,7 +127,7 @@ export const Filter = ({ filterData }) => {
                 background: "red",
               },
               multiselectContainer: {
-                color: "red",
+                color: "rgb(90, 90, 90)",
               },
               searchBox: {
                 border: "none",
@@ -160,7 +163,7 @@ export const Filter = ({ filterData }) => {
             }}
             style={{
               multiselectContainer: {
-                color: "red",
+                color: "rgb(90,90,90)",
               },
               searchBox: {
                 border: "none",
@@ -196,7 +199,7 @@ export const Filter = ({ filterData }) => {
             }}
             style={{
               multiselectContainer: {
-                color: "red",
+                color: "rgb(90, 90, 90)",
               },
               searchBox: {
                 border: "none",
@@ -232,7 +235,7 @@ export const Filter = ({ filterData }) => {
             }}
             style={{
               multiselectContainer: {
-                color: "red",
+                color: "rgb(90, 90, 90)",
               },
               searchBox: {
                 border: "none",

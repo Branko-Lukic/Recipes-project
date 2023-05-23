@@ -28,15 +28,18 @@
 /* .................................. */
 .filter {
   position: sticky;
+  background-color: #e5e5e5b1;
   top: 10vh;
   left: 0px;
   min-width: 270px;
   max-width: 270px;
   height: 90vh;
-  border: 3px solid green;
+  /* border: 3px solid green; */
   /* transition: left 0.4s; */
-  background-color: white;
+
   /* padding-top: 50px; */
+
+  /* overflow: scroll; */
 }
 
 .close {

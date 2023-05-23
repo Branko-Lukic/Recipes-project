@@ -23,8 +23,23 @@ const authSlice = createSlice({
       state.currentUser = action.payload;
       console.log(state.currentUser);
     },
+    setFavourites(state, action) {
+      !state.currentUser.favourites.includes(action.payload)
+        ? (state.currentUser.favourites = [
+            ...state.currentUser.favourites,
+            action.payload,
+          ])
+        : (state.currentUser.favourites = state.currentUser.favourites.filter(
+            (fav) => fav !== action.payload
+          ));
+    },
   },
 });
-export const { setError, finishLoading, startLoading, setCurrentUser } =
-  authSlice.actions;
+export const {
+  setError,
+  finishLoading,
+  startLoading,
+  setCurrentUser,
+  setFavourites,
+} = authSlice.actions;
 export default authSlice.reducer;

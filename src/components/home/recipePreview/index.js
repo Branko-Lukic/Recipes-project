@@ -1,19 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
 import { useNavigate } from "react-router-dom";
-import Prewiew from "../../../img/slika1.webp";
+import { auth } from "../../../firebase/config";
 import { BsClock } from "react-icons/bs";
 import { FiHeart } from "react-icons/fi";
+import { toggleFavourites } from "../../../api";
+import { useSelector, useDispatch } from "react-redux";
+import { setFavourites } from "../../../store/reducers/authSlice";
+import { setTimesFavoured } from "../../../store/reducers/recipesSlice";
 
 export const RecipePreview = ({ name, id, addedBy, time, imgURL }) => {
   const [isAddedToFav, setIsAddedToFav] = useState(false);
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const favourites = currentUser?.favourites;
+  console.log(favourites);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    favourites?.includes(id) ? setIsAddedToFav(true) : setIsAddedToFav(false);
+  }, [favourites]);
 
   const handleClick = () => {
-    setIsAddedToFav(!isAddedToFav);
+    toggleFavourites(auth?.currentUser?.uid, id).then((_) =>
+      dispatch(setFavourites(id))
+    );
+    setIsAddedToFav((prev) => !prev);
+    // isAddedToFav
+    //   ? dispatch(setTimesFavoured("DECREASE"))
+    //   : dispatch(setTimesFavoured("INCREASE"));
   };
 
-  const toggleFavBtn = isAddedToFav ? `${styles.favBtnClick}` : ``;
+  const toggleFavBtn = isAddedToFav ? `${styles.addedToFav}` : ``;
 
   return (
     <div className={styles.containerr}>

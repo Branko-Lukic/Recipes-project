@@ -34,5 +34,6 @@ export const useCurrentUser = () => {
 
   useEffect(() => {
     dispatch(setCurrentUser(curr));
+    console.log(auth?.currentUser, "user uid ");
   }, [curr]);
 };

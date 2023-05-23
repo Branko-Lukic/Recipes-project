@@ -11,6 +11,7 @@
 .header {
   display: flex;
   gap: 5%;
+  border: 1px solid black;
 }
 
 .headerText {
@@ -69,10 +70,26 @@
   word-break: break-all;
 }
 
+.btnsContainer {
+  /* border: 1px solid black; */
+  margin: 50px 0;
+}
+
+.btn {
+  padding: 5px 10px;
+  margin-right: 40px;
+}
+
+.delIcon {
+  /* font-size: 1.5rem; */
+  font-size: 20px;
+}
+
 .body {
   display: flex;
   gap: 5%;
   margin-top: 60px;
+  border: 1px solid black;
 }
 
 .body h2 {

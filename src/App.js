@@ -8,7 +8,9 @@ import { Recipe } from "./pages/Recipe";
 import { SignUp } from "./pages/SignUp";
 import { Overview } from "./components/profile/overview";
 import { AddNewRecipe } from "./components/profile/addNewRecipe";
+import { useCurrentUser } from "./hooks/useCurrentUser";
 const App = () => {
+  useCurrentUser();
   return (
     <div className="App">
       <BrowserRouter>

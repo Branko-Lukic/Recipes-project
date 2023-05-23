@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
 // import RecipeImg from "../../../img/slika1.webp";
 import { BsClock } from "react-icons/bs";
@@ -6,11 +6,34 @@ import { FiHeart } from "react-icons/fi";
 import { TbChefHat } from "react-icons/tb";
 import { GiKnifeFork } from "react-icons/gi";
 import { FaUserCircle } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 // import { getRecipeById } from "../../../api";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleFavourites } from "../../../api";
+import { setFavourites } from "../../../store/reducers/authSlice";
+import { auth } from "../../../firebase/config";
+import { setTimesFavoured } from "../../../store/reducers/recipesSlice";
 
 export const SingleRecipe = ({ selectedRecipe }) => {
-  // console.log(selectedRecipe);
-  // getRecipeById(param).then((res)=>dispatch(setSelected(res))) BITNO ...
+  const recipeId = selectedRecipe.id;
+  const currentUser = useSelector((state) => state.auth.currentUser);
+
+  const userFavourites = currentUser?.favourites;
+  const favoured = userFavourites?.includes(recipeId);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    toggleFavourites(auth?.currentUser?.uid, recipeId).then((_) =>
+      dispatch(setFavourites(recipeId))
+    );
+
+    favoured
+      ? dispatch(setTimesFavoured("DECREASE"))
+      : dispatch(setTimesFavoured("INCREASE"));
+  };
+
+  const handleDeleteRecipeBtn = (recipeId) => {};
+
   return (
     <>
       <div className={styles.wrapper}>
@@ -52,6 +75,25 @@ export const SingleRecipe = ({ selectedRecipe }) => {
                 </span>
               </div>
               <div className={styles.description}>{selectedRecipe.desc}</div>
+            </div>
+            <div className={styles.btnsContainer}>
+              {favoured ? (
+                <button className={styles.btn} onClick={handleClick}>
+                  Remove from <FiHeart className={styles.favIcon} />
+                </button>
+              ) : (
+                <button className={styles.btn} onClick={handleClick}>
+                  Add to <FiHeart className={styles.favIcon} />
+                </button>
+              )}
+
+              <button className={styles.btn}>
+                Delete recipe{" "}
+                <MdDelete
+                  onClick={handleDeleteRecipeBtn}
+                  className={styles.delIcon}
+                />
+              </button>
             </div>
           </div>
           <div className={styles.imgDiv}>

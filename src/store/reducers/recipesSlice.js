@@ -3,8 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   filterParams: {},
   searchParam: "",
-  // added: [],
-  // favourites: [],
   filtered: [],
   selected: {},
   loading: false,
@@ -36,6 +34,11 @@ const recipesSlice = createSlice({
     setSearchParam(state, action) {
       state.searchParam = action.payload;
     },
+    setTimesFavoured(state, action) {
+      action.payload === "INCREASE"
+        ? (state.selected.timesFavoured += 1)
+        : (state.selected.timesFavoured -= 1);
+    },
   },
 });
 export const {
@@ -46,5 +49,6 @@ export const {
   addSelected,
   setFilterParams,
   setSearchParam,
+  setTimesFavoured,
 } = recipesSlice.actions;
 export default recipesSlice.reducer;

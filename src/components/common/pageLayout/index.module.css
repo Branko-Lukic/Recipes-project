@@ -5,7 +5,9 @@
 
 .layout {
   display: flex;
-  border: 5px solid blue;
+  /* border: 5px solid blue; */
+  min-height: 90vh;
+  height: auto;
 
   /* margin-top: 65px; */
 }

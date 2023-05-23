@@ -16,39 +16,35 @@ import {
 } from "../store/reducers/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 
-import { Form, Button, Card, Container } from "react-bootstrap";
+import { Form, Button, Card, Container, Alert } from "react-bootstrap";
+import { current } from "@reduxjs/toolkit";
 
 export const SignUp = () => {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   // const [username, setUsername] = useState("");
+  const loading = useSelector((state) => state.recipes.loading);
+  const error = useSelector((state) => state.auth.error);
+  // const currentUser = useSelector((state) => state.auth.currentUser);
 
   const emailRef = useRef();
   const usernameRef = useRef();
   const passwordRef = useRef();
-
+  const passwordConfirmRef = useRef();
   // const authSlice = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const [userUid, setUserUid] = useState("");
 
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       setUserUid(user.uid);
-  //     } else console.log(`no user available`);
-  //   });
-  // }, []);
-  // useEffect(() => {
-  //   console.log(userUid);
-  // }, [userUid]);
-
-  console.log(auth?.currentUser?.uid);
-
-  const signUp = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return dispatch(setError("Password do not match"));
+    }
+    // dispatch(setError(""));
     dispatch(startLoading());
     createUserWithEmailAndPassword(
       auth,
@@ -64,7 +60,6 @@ export const SignUp = () => {
           username: `${usernameRef.current.value}`,
           favourites: [],
           added: [],
-          // uid: `${res.user.uid}`,
         });
       })
       .then(() => {
@@ -78,37 +73,18 @@ export const SignUp = () => {
       })
       .catch((err) => {
         dispatch(finishLoading());
-        dispatch(setError(err.message));
+        dispatch(setError(err.message)); //'Failed to create an account'
       });
+    // useCurrentUser();
+    // console.log(currentUser);
+    // console.log(error);
   };
 
-  const logout = () => {
-    return signOut(auth).then(() => dispatch(setCurrentUser(null)));
-  };
-
+  // const logout = () => {
+  //   return signOut(auth).then(() => dispatch(setCurrentUser(null)));
+  // };
   return (
     <>
-      {/* <div>
-        <input
-          type="username"
-          placeholder="Username..."
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Email..."
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password..."
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <button onClick={signUp}>signUp</button>
-        <button onClick={() => navigate(`/login`)}>LOGIN</button>
-      </div> */}
-
       <Container
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: "100vh" }}
@@ -117,6 +93,8 @@ export const SignUp = () => {
           <Card>
             <Card.Body>
               <h2 className="text-center mb-4">Sign Up</h2>
+              {error && <Alert variant="danger">{error}</Alert>}
+              {/* <Form onSubmit={handleSubmit}> */}
               <Form>
                 <Form.Group id="email" className="mb-3">
                   <Form.Label>Email</Form.Label>
@@ -130,7 +108,24 @@ export const SignUp = () => {
                   <Form.Label>Password</Form.Label>
                   <Form.Control type="password" ref={passwordRef} required />
                 </Form.Group>
-                <Button type="submit" className="w-100" onClick={signUp}>
+                <Form.Group id="password-confirm" className="mb-4">
+                  <Form.Label>Password Confirmation</Form.Label>
+                  <Form.Control
+                    type="password"
+                    ref={passwordConfirmRef}
+                    required
+                  />
+                </Form.Group>
+                <Button
+                  disabled={loading}
+                  type="submit"
+                  className="w-100 "
+                  style={{
+                    background: "red",
+                    border: "none",
+                  }}
+                  onClick={handleSubmit}
+                >
                   Sign Up
                 </Button>
               </Form>

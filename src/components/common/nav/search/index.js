@@ -37,7 +37,7 @@ function SearchBar() {
     console.log(filterQueryString);
 
     navigate(
-      `/?search=${input} ${filterQueryString && `&${filterQueryString}`}`
+      `/?search=${input}${filterQueryString && `&${filterQueryString}`}`
     );
   };
 
