@@ -1,5 +1,6 @@
 nav {
   height: 10vh;
+  min-height: 72px;
   width: 100%;
   background-color: rgb(155, 155, 155);
   padding: 12px 0;
@@ -8,23 +9,39 @@ nav {
   z-index: 2;
 }
 
-h1 {
+.container h1 {
   cursor: pointer;
+  /* color: red; */
 }
 
 .container {
   width: 85%;
+  height: 100%;
   margin: 0 auto;
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .logInReg {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
 }
 
 span:hover {
   cursor: pointer;
+}
+
+.logo {
+  padding-bottom: 11px;
+  font-size: 3.5rem;
+  /* color: red; */
+}
+
+.user {
+  padding-bottom: 6px;
+  font-size: 1.8rem;
+  /* margin-right: 4px; */
 }

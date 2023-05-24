@@ -20,6 +20,7 @@ import { useCurrentUser } from "../hooks/useCurrentUser";
 
 import { Form, Button, Card, Container, Alert } from "react-bootstrap";
 import { current } from "@reduxjs/toolkit";
+import { BackToHome } from "../components/common/backToHome";
 
 export const SignUp = () => {
   // const [email, setEmail] = useState("");
@@ -85,6 +86,7 @@ export const SignUp = () => {
   // };
   return (
     <>
+      <BackToHome />
       <Container
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: "100vh" }}
@@ -133,7 +135,12 @@ export const SignUp = () => {
           </Card>
           <div className="w-100 text-center mt-2">
             Already have an account?{" "}
-            <span onClick={() => navigate(`/login`)}>Log In</span>
+            <span
+              onClick={() => navigate(`/login`)}
+              style={{ fontWeight: "bold" }}
+            >
+              Log In
+            </span>
           </div>
         </div>
       </Container>

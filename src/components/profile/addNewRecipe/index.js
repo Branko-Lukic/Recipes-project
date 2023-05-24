@@ -13,8 +13,12 @@ import { useRowsStateUpdate } from "./hooks/useRowsStateUpdate";
 //   setDoc,
 //   serverTimestamp,
 // } from "firebase/firestore";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createNewRecipe } from "../../../api";
+import { auth } from "../../../firebase/config";
+import { setAdded } from "../../../store/reducers/authSlice";
+import { v4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 export const AddNewRecipe = () => {
   // const error = useSelector((state) => state.recipes.error);
@@ -43,6 +47,39 @@ export const AddNewRecipe = () => {
   const [time, setTime] = useState("");
   const [servings, setServings] = useState("");
   const [description, setDescription] = useState("");
+
+  const userUid = auth?.currentUser?.uid;
+  const dispatch = useDispatch();
+  const id = v4();
+  const navigate = useNavigate();
+
+  const handlePublishRecipeBtn = () => {
+    createNewRecipe(
+      userUid,
+      id,
+      title,
+      currentUser.username,
+      time,
+      difficulty,
+      servings,
+      description,
+      imageURL,
+      ingredients,
+      ingredientTags,
+      preparationSteps,
+      (() => {
+        const currentDate = new Date();
+        const day = currentDate.getDate();
+        const month = currentDate.getMonth() + 1;
+        const year = currentDate.getFullYear();
+        return `${day}.${month}.${year}`;
+      })()
+    );
+
+    dispatch(setAdded(id));
+
+    navigate("/");
+  };
 
   return (
     <>
@@ -198,31 +235,7 @@ export const AddNewRecipe = () => {
           </div>
         </div>
         <div className={styles.divPublish}>
-          <button
-            onClick={() =>
-              createNewRecipe(
-                title,
-                currentUser.username,
-                time,
-                difficulty,
-                servings,
-                description,
-                imageURL,
-                ingredients,
-                ingredientTags,
-                preparationSteps,
-                (() => {
-                  const currentDate = new Date();
-                  const day = currentDate.getDate();
-                  const month = currentDate.getMonth() + 1;
-                  const year = currentDate.getFullYear();
-                  return `${day}.${month}.${year}`;
-                })()
-              )
-            }
-          >
-            Publish recipe
-          </button>
+          <button onClick={handlePublishRecipeBtn}>Publish recipe</button>
         </div>
       </div>
     </>

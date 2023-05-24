@@ -2,18 +2,31 @@ import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import UserImg from "../../../img/user1.jpg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import { setCurrentUser } from "../../../store/reducers/authSlice";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebase/config";
 
 export const Sidebar = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
 
   const location = useLocation();
-  console.log(location);
+
   const navigate = useNavigate();
   const path = location.pathname.split("/")[2];
+  const dispatch = useDispatch();
 
   useCurrentUser();
+
+  // const logout = () => {
+  //   return signOut(auth).then(() => dispatch(setCurrentUser(null)));
+  // };
+
+  const handleLogoutBtnClick = () => {
+    signOut(auth).then((_) => dispatch(setCurrentUser(null)));
+    navigate("/");
+  };
 
   return (
     <div className={styles.sidebar}>
@@ -38,7 +51,12 @@ export const Sidebar = () => {
       >
         Add new recipe
       </div>
-      <div className={`${styles.link} ${styles.redText}`}>Logout</div>
+      <div
+        className={`${styles.link} ${styles.redText}`}
+        onClick={handleLogoutBtnClick}
+      >
+        Logout
+      </div>
     </div>
   );
 };

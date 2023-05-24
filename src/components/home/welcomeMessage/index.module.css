@@ -1,0 +1,13 @@
+.message {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.span {
+  color: rgba(99, 197, 132, 255);
+}
+
+.messageCont {
+  margin-left: 150px;
+}

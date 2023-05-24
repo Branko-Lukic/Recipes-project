@@ -33,6 +33,16 @@ const authSlice = createSlice({
             (fav) => fav !== action.payload
           ));
     },
+    setAdded(state, action) {
+      !state.currentUser.added.includes(action.payload)
+        ? (state.currentUser.added = [
+            ...state.currentUser.added,
+            action.payload,
+          ])
+        : (state.currentUser.added = state.currentUser.added.filter(
+            (id) => id !== action.payload
+          ));
+    },
   },
 });
 export const {
@@ -41,5 +51,6 @@ export const {
   startLoading,
   setCurrentUser,
   setFavourites,
+  setAdded,
 } = authSlice.actions;
 export default authSlice.reducer;

@@ -13,7 +13,7 @@ export const RecipePreview = ({ name, id, addedBy, time, imgURL }) => {
   const [isAddedToFav, setIsAddedToFav] = useState(false);
   const currentUser = useSelector((state) => state.auth.currentUser);
   const favourites = currentUser?.favourites;
-  console.log(favourites);
+  // console.log(favourites);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

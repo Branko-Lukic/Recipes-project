@@ -50,14 +50,8 @@ export const Filter = ({ filterData }) => {
 
   const handleFilterBtn = () => {
     setFilterActive(!filterActive);
-    setTimeout(() => {
-      setOpenBtnActive(!openBtnActive);
-    }, 300);
+    setOpenBtnActive(!openBtnActive);
     filterData && filterData(!filterActive);
-    console.log(selectedIngTags);
-    console.log(selectedTime);
-    console.log(selectedDifficulty);
-    console.log(selectedServings);
   };
   useEffect(() => {
     getIngredientTags().then((res) => setIngTags(res));

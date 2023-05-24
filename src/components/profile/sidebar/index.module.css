@@ -1,8 +1,9 @@
 .sidebar {
   width: 334px;
-  border: 3px solid green;
+  /* border: 3px solid green; */
   height: 90vh;
-  background-color: white;
+  background-color: rgba(221, 221, 221, 0.567);
+  border-right: 2px solid #e5e5e576;
   position: sticky;
   top: 10vh;
   /* height: 100vh; */
@@ -36,5 +37,10 @@
 .user {
   text-align: center;
   padding-bottom: 20px;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #e5e5e5b1;
+  background-color: rgb(255, 255, 255);
+}
+
+.user div {
+  font-size: 1.5rem;
 }

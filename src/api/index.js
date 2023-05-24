@@ -1,7 +1,13 @@
 // ................... Recipes .............................
 import { db } from "../firebase/config";
-import { getDocs, getDoc, doc, collection, setDoc } from "firebase/firestore";
-import { v4 } from "uuid";
+import {
+  getDocs,
+  getDoc,
+  doc,
+  collection,
+  setDoc,
+  deleteDoc,
+} from "firebase/firestore";
 
 const recipesCollectionRef = collection(db, "recipes");
 // const usersCollectionRef = collection(db, "users");
@@ -111,6 +117,8 @@ export const getIngredientTags = () => {
 };
 
 export const createNewRecipe = (
+  userUid,
+  id,
   name,
   addedBy,
   requiredTime,
@@ -123,10 +131,8 @@ export const createNewRecipe = (
   prepSteps,
   addedAt
 ) => {
-  // const recipesCollectionRef = collection(db, "recipes");
-
   const newRecipe = {
-    id: v4(),
+    id,
     name,
     addedBy,
     rating: [],
@@ -144,6 +150,17 @@ export const createNewRecipe = (
   };
   const recipeRef = doc(recipesCollectionRef, newRecipe.id);
   setDoc(recipeRef, newRecipe);
+
+  //Adding to user.added
+  const userRef = doc(db, `users`, userUid);
+  getDoc(userRef)
+    .then((doc) => doc.data())
+    .then((user) =>
+      setDoc(userRef, {
+        ...user,
+        added: [...user.added, newRecipe.id],
+      })
+    );
 };
 
 export const increaseTimesFavoured = (recipeId) => {
@@ -195,6 +212,20 @@ export const toggleFavourites = (userUid, recipeId) => {
     });
 };
 
-export const deleteRecipe = (recipeId) => {};
+export const deleteRecipe = (recipeId, userUid) => {
+  const recipeRef = doc(db, `recipes`, recipeId);
+  deleteDoc(recipeRef);
+
+  //deleting from user.added                                           ovo moze sa onim gore da bude jedan poziv
+  const userRef = doc(db, `users`, userUid);
+  getDoc(userRef)
+    .then((doc) => doc.data())
+    .then((user) =>
+      setDoc(userRef, {
+        ...user,
+        added: user.added.filter((id) => id !== recipeId),
+      })
+    );
+};
 
 // ................... Auth .............................

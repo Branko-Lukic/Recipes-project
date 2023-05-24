@@ -92,6 +92,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import { Form, Button, Card, Container, Alert } from "react-bootstrap";
+import { BackToHome } from "../components/common/backToHome";
 
 export const LogIn = () => {
   // const currentUser = useSelector((state) => state.auth.currentUser);
@@ -119,46 +120,37 @@ export const LogIn = () => {
     e.preventDefault();
 
     dispatch(startLoading());
-    return (
-      signInWithEmailAndPassword(
-        auth,
-        emailRef.current.value,
-        passwordRef.current.value
-      )
-        .then((res) => {
-          console.log(res.user.uid);
-          // console.log(auth?.currentUser, "user uid ");
+    return signInWithEmailAndPassword(
+      auth,
+      emailRef.current.value,
+      passwordRef.current.value
+    )
+      .then((res) => {
+        console.log(res.user.uid);
+        const userRef = doc(db, `users`, res.user.uid);
+        return getDoc(userRef);
+      })
 
-          const userRef = doc(db, `users`, res.user.uid);
-          return getDoc(userRef);
-        })
-        // .then((user) => {
-        //   // console.log(authSlice.currentUser);
-        //   user && user.exists() && dispatch(setCurrentUser(user.data()));
-        //   dispatch(finishLoading());
-        // })
-        .then((userDoc) => {
-          if (userDoc.exists()) {
-            dispatch(setCurrentUser(userDoc.data()));
-            dispatch(finishLoading());
-            navigate("/");
-          } else {
-            dispatch(setCurrentUser(null));
-            dispatch(finishLoading());
-          }
-        })
-        .catch((err) => {
+      .then((userDoc) => {
+        if (userDoc.exists()) {
+          dispatch(setCurrentUser(userDoc.data()));
           dispatch(finishLoading());
-          dispatch(setError(err.message));
-        })
-    );
+          navigate("/");
+        } else {
+          dispatch(setCurrentUser(null));
+          dispatch(finishLoading());
+        }
+      })
+      .catch((err) => {
+        dispatch(finishLoading());
+        dispatch(setError(err.message));
+      });
   };
 
-  // const logout = () => {
-  //   return signOut(auth).then(() => dispatch(setCurrentUser(null)));
-  // };
   return (
     <>
+      <BackToHome />
+
       <Container
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: "100vh" }}
@@ -195,7 +187,12 @@ export const LogIn = () => {
           </Card>
           <div className="w-100 text-center mt-2">
             Need an account?{" "}
-            <span onClick={() => navigate(`/signup`)}>Sign Up</span>
+            <span
+              onClick={() => navigate(`/signup`)}
+              style={{ fontWeight: "bold" }}
+            >
+              Sign Up
+            </span>
           </div>
         </div>
       </Container>

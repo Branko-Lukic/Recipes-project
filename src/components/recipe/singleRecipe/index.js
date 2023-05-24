@@ -9,21 +9,26 @@ import { FaUserCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 // import { getRecipeById } from "../../../api";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleFavourites } from "../../../api";
+import { deleteRecipe, toggleFavourites } from "../../../api";
 import { setFavourites } from "../../../store/reducers/authSlice";
 import { auth } from "../../../firebase/config";
 import { setTimesFavoured } from "../../../store/reducers/recipesSlice";
+import { useNavigate } from "react-router-dom";
 
 export const SingleRecipe = ({ selectedRecipe }) => {
   const recipeId = selectedRecipe.id;
   const currentUser = useSelector((state) => state.auth.currentUser);
 
   const userFavourites = currentUser?.favourites;
+  const userAdded = currentUser?.added;
+  console.log(userAdded);
   const favoured = userFavourites?.includes(recipeId);
   const dispatch = useDispatch();
+  const userUid = auth?.currentUser?.uid;
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    toggleFavourites(auth?.currentUser?.uid, recipeId).then((_) =>
+    toggleFavourites(userUid, recipeId).then((_) =>
       dispatch(setFavourites(recipeId))
     );
 
@@ -32,7 +37,10 @@ export const SingleRecipe = ({ selectedRecipe }) => {
       : dispatch(setTimesFavoured("INCREASE"));
   };
 
-  const handleDeleteRecipeBtn = (recipeId) => {};
+  const handleDeleteRecipeBtn = () => {
+    deleteRecipe(recipeId, userUid);
+    navigate("/");
+  };
 
   return (
     <>
@@ -56,7 +64,7 @@ export const SingleRecipe = ({ selectedRecipe }) => {
                   <FaUserCircle className={styles.userIcon} />
                   {selectedRecipe.addedBy}
                 </span>
-                <span>{selectedRecipe.addedAt}</span>
+                <span className={styles.date}>{selectedRecipe.addedAt}</span>
               </div>
               <div className={styles.details}>
                 <span>
@@ -86,14 +94,14 @@ export const SingleRecipe = ({ selectedRecipe }) => {
                   Add to <FiHeart className={styles.favIcon} />
                 </button>
               )}
-
-              <button className={styles.btn}>
-                Delete recipe{" "}
-                <MdDelete
-                  onClick={handleDeleteRecipeBtn}
-                  className={styles.delIcon}
-                />
-              </button>
+              {userAdded?.includes(recipeId) ? (
+                <button className={styles.btn} onClick={handleDeleteRecipeBtn}>
+                  Delete recipe
+                  <MdDelete className={styles.delIcon} />
+                </button>
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div className={styles.imgDiv}>

@@ -4,41 +4,17 @@ import { useLocation } from "react-router-dom";
 import { RecipesContainer } from "../components/home/recipesContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { filterRecipes, setSearchParam } from "../store/reducers/recipesSlice";
-import { getRecipesByName, getAllRecipes, getFilteredRecipe } from "../api";
+import { getFilteredRecipe } from "../api";
 import { Filter } from "../components/common/filter";
 import { PageLayout } from "../components/common/pageLayout";
 import { ContentLayout } from "../components/common/contentLayout";
-import { db } from "../firebase/config";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { WelcomeMessage } from "../components/home/welcomeMessage";
 
 export const Home = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const recipes = useSelector((state) => state.recipes);
-
   const queryParams = new URLSearchParams(location.search);
-
-  // useEffect(() => {
-  //   const search = queryParams.get("search");
-  //   const ingTags = queryParams.get("ings")?.split(",");
-  //   const time = queryParams.get("time");
-  //   const difficulty = queryParams.get("difficulty");
-  //   const servings = queryParams.get("servings");
-
-  //   // let recipesRef = collection(db, "recipes");
-
-  //   const params = location.search;
-  //   !params
-  //     ? getAllRecipes().then((res) => {
-  //         dispatch(filterRecipes(res));
-  //       })
-  //     : getRecipesByName(params).then((res) => {
-  //         dispatch(filterRecipes(res));
-  //       });
-
-  //   console.log(search, ingTags, time, difficulty, servings);
-  //   console.log(params);
-  // }, [location.search]);
 
   useEffect(() => {
     const search = queryParams.get("search");
@@ -48,18 +24,6 @@ export const Home = () => {
     const time = queryParams.get("time");
     const difficulty = queryParams.get("difficulty");
     const servings = queryParams.get("servings");
-
-    // console.log(
-    //   search,
-    //   `,`,
-    //   ingTags,
-    //   `,`,
-    //   time,
-    //   `,`,
-    //   difficulty,
-    //   `,`,
-    //   servings
-    // );
 
     getFilteredRecipe(search, ingTags, time, difficulty, servings).then(
       (recipes) => {
@@ -85,8 +49,9 @@ export const Home = () => {
       <Navbar />
       <PageLayout>
         <Filter filterData={handleFilterState} />
-        {/* <Filter /> */}
+
         <ContentLayout>
+          <WelcomeMessage />
           {recipes.filtered.length > 0 ? (
             <RecipesContainer
               filterProp={filterState}
