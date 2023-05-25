@@ -119,6 +119,7 @@ export const Filter = ({ filterData }) => {
             style={{
               chips: {
                 background: "red",
+                fontSize: "12px",
               },
               multiselectContainer: {
                 color: "rgb(90, 90, 90)",
@@ -130,13 +131,12 @@ export const Filter = ({ filterData }) => {
               },
 
               optionContainer: {
-                // border: "1px solid blue",
                 maxHeight: "120px",
                 borderTop: "none",
                 borderTopLeftRadius: "0px",
+                fontSize: "15px",
               },
               option: {
-                // height: "40px",
                 padding: "3px 10px",
               },
             }}
@@ -152,6 +152,7 @@ export const Filter = ({ filterData }) => {
             avoidHighlightFirstOption
             singleSelect
             ref={timeRef}
+            customCloseIcon={<></>}
             onSelect={(e) => {
               setSelectedTime(...e);
             }}
@@ -159,6 +160,10 @@ export const Filter = ({ filterData }) => {
               multiselectContainer: {
                 color: "rgb(90,90,90)",
               },
+              chips: {
+                fontSize: "14px",
+              },
+
               searchBox: {
                 border: "none",
                 borderBottom: "2px solid rgb(150,150,150)",
@@ -171,6 +176,7 @@ export const Filter = ({ filterData }) => {
                 maxHeight: "120px",
                 borderTop: "none",
                 borderTopLeftRadius: "0px",
+                fontSize: "15px",
               },
               option: {
                 // height: "40px",
@@ -187,6 +193,7 @@ export const Filter = ({ filterData }) => {
             placeholder="Select difficulty"
             avoidHighlightFirstOption
             singleSelect
+            customCloseIcon={<></>}
             ref={diffRef}
             onSelect={(e) => {
               setSelectedDifficulty(...e);
@@ -194,6 +201,9 @@ export const Filter = ({ filterData }) => {
             style={{
               multiselectContainer: {
                 color: "rgb(90, 90, 90)",
+              },
+              chips: {
+                fontSize: "14px",
               },
               searchBox: {
                 border: "none",
@@ -207,6 +217,7 @@ export const Filter = ({ filterData }) => {
                 maxHeight: "120px",
                 borderTop: "none",
                 borderTopLeftRadius: "0px",
+                fontSize: "15px",
               },
               option: {
                 // height: "40px",
@@ -223,6 +234,7 @@ export const Filter = ({ filterData }) => {
             placeholder="Select servings"
             avoidHighlightFirstOption
             singleSelect
+            customCloseIcon={<></>}
             ref={servRef}
             onSelect={(e) => {
               setSelectedServings(...e);
@@ -230,6 +242,9 @@ export const Filter = ({ filterData }) => {
             style={{
               multiselectContainer: {
                 color: "rgb(90, 90, 90)",
+              },
+              chips: {
+                fontSize: "14px",
               },
               searchBox: {
                 border: "none",
@@ -243,6 +258,7 @@ export const Filter = ({ filterData }) => {
                 maxHeight: "120px",
                 borderTop: "none",
                 borderTopLeftRadius: "0px",
+                fontSize: "15px",
               },
               option: {
                 // height: "40px",

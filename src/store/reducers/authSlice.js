@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  currentUser: null,
+  currentUser: undefined,
   loading: false,
   error: null,
 };
@@ -20,8 +20,8 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
     setCurrentUser(state, action) {
-      state.currentUser = action.payload;
       console.log(state.currentUser);
+      state.currentUser = action.payload;
     },
     setFavourites(state, action) {
       !state.currentUser.favourites.includes(action.payload)

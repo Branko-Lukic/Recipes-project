@@ -20,7 +20,5 @@ export const RecipesContainer = ({ searchedRecipes, filterProp }) => {
     ? styles.containerFilterActive
     : styles.container;
 
-  // console.log(filterProp);
-
   return <div className={filterActive}>{renderRecipePreviews()}</div>;
 };

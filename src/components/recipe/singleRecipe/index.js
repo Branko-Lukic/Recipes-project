@@ -85,14 +85,18 @@ export const SingleRecipe = ({ selectedRecipe }) => {
               <div className={styles.description}>{selectedRecipe.desc}</div>
             </div>
             <div className={styles.btnsContainer}>
-              {favoured ? (
-                <button className={styles.btn} onClick={handleClick}>
-                  Remove from <FiHeart className={styles.favIcon} />
-                </button>
+              {auth?.currentUser ? (
+                favoured ? (
+                  <button className={styles.btn} onClick={handleClick}>
+                    Remove from <FiHeart className={styles.favIcon} />
+                  </button>
+                ) : (
+                  <button className={styles.btn} onClick={handleClick}>
+                    Add to <FiHeart className={styles.favIcon} />
+                  </button>
+                )
               ) : (
-                <button className={styles.btn} onClick={handleClick}>
-                  Add to <FiHeart className={styles.favIcon} />
-                </button>
+                ""
               )}
               {userAdded?.includes(recipeId) ? (
                 <button className={styles.btn} onClick={handleDeleteRecipeBtn}>

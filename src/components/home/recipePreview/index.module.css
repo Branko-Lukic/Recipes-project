@@ -58,11 +58,16 @@
 
 .name {
   background-color: red;
+  /* background-color: rgb(220, 0, 0); */
+
+  /* background-color: rgba(99, 197, 132, 255); */
   color: white;
+
   font-weight: bold;
   font-size: 18px;
   padding: 0 4px;
   padding-bottom: 3px;
+  letter-spacing: 1px;
 }
 .upperText {
   background-color: white;
@@ -78,5 +83,5 @@
 .clock {
   font-size: 14px;
 
-  padding-top: 1px;
+  margin-bottom: 1px;
 }

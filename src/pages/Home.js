@@ -9,12 +9,22 @@ import { Filter } from "../components/common/filter";
 import { PageLayout } from "../components/common/pageLayout";
 import { ContentLayout } from "../components/common/contentLayout";
 import { WelcomeMessage } from "../components/home/welcomeMessage";
+import { ClipLoader } from "react-spinners";
+import { MdSearchOff } from "react-icons/md";
 
 export const Home = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const recipes = useSelector((state) => state.recipes);
   const queryParams = new URLSearchParams(location.search);
+
+  const user = useSelector((state) => state.auth.currentUser);
+  // console.log(user);
+
+  const style = {
+    marginTop: "250px",
+    textAlign: "center",
+  };
 
   useEffect(() => {
     const search = queryParams.get("search");
@@ -49,130 +59,61 @@ export const Home = () => {
       <Navbar />
       <PageLayout>
         <Filter filterData={handleFilterState} />
-
         <ContentLayout>
-          <WelcomeMessage />
+          {user === undefined ? "" : <WelcomeMessage />}
+          {recipes.filtered.length > 0 ? (
+            <RecipesContainer
+              filterProp={filterState}
+              searchedRecipes={recipes.filtered}
+            />
+          ) : user === undefined ? (
+            <div style={style}>
+              <ClipLoader size={80} color="red" />
+            </div>
+          ) : (
+            <div
+              style={{
+                fontSize: "3rem",
+                fontWeight: "bold",
+                marginTop: "150px",
+                marginLeft: "400px",
+              }}
+            >
+              No recipes <MdSearchOff style={{ fontSize: "4rem" }} />
+            </div>
+          )}
+        </ContentLayout>
+      </PageLayout>
+
+      {/* <Navbar />
+      <PageLayout>
+        <Filter filterData={handleFilterState} />
+        <ContentLayout>
+          {user === undefined ? "" : <WelcomeMessage />}
           {recipes.filtered.length > 0 ? (
             <RecipesContainer
               filterProp={filterState}
               searchedRecipes={recipes.filtered}
             />
           ) : (
-            <div style={{ marginTop: "200px" }}>
-              Nijesmo nasli nista za tu pretragu.
+            // : user === undefined ? (
+            //   <div style={style}>
+            //     <ClipLoader size={80} color="red" />
+            //   </div>
+            // )
+            <div
+              style={{
+                fontSize: "3rem",
+                fontWeight: "bold",
+                marginTop: "150px",
+                marginLeft: "400px",
+              }}
+            >
+              No recipes <MdSearchOff style={{ fontSize: "4rem" }} />
             </div>
           )}
         </ContentLayout>
-      </PageLayout>
+      </PageLayout> */}
     </>
   );
 };
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// import React, { useEffect, useState } from "react";
-// import Navbar from "../components/common/nav";
-// import { useLocation } from "react-router-dom";
-// import { RecipesContainer } from "../components/home/recipesContainer";
-// import { useDispatch, useSelector } from "react-redux";
-// import { filterRecipes, setSearchParam } from "../store/reducers/recipesSlice";
-// import { getDocs, collection, query, where } from "firebase/firestore";
-// import { db } from "../firebase/config";
-// import { Filter } from "../components/common/filter";
-// import { PageLayout } from "../components/common/pageLayout";
-// import { ContentLayout } from "../components/common/contentLayout";
-
-// export const Home = () => {
-//   const dispatch = useDispatch();
-//   const location = useLocation();
-//   const recipes = useSelector((state) => state.recipes);
-
-//   const queryParams = new URLSearchParams(location.search);
-
-//   useEffect(() => {
-//     const search = queryParams.get("search");
-//     const ingTags = queryParams.get("ings")?.split(",");
-//     const time = queryParams.get("time");
-//     const difficulty = queryParams.get("difficulty");
-//     const servings = queryParams.get("servings");
-
-//     let recipesRef = collection(db, "recipes");
-
-//     // const searchLowerCase = search?.toLowerCase();
-//     // if (search) {
-//     //   recipesRef = query(
-//     //     recipesRef,
-//     //     where("name", ">=", searchLowerCase),
-//     //     where("name", "<=", searchLowerCase + "\uf8ff")
-//     //   );
-//     // }
-
-//     // Apply ingTags parameter
-//     if (ingTags && ingTags.length > 0) {
-//       recipesRef = query(
-//         recipesRef,
-//         where("ingTags", "array-contains-any", ingTags)
-//       );
-//     }
-
-//     // Apply time parameter
-//     // if (time) {
-//     //   const timeNum = time.match(/\d+/)[0];
-//     //   recipesRef = query(recipesRef, where("requiredTime", "<=", timeNum));
-//     // }
-
-//     // // Apply difficulty parameter
-//     // if (difficulty) {
-//     //   recipesRef = query(recipesRef, where("difficulty", "==", difficulty));
-//     // }
-
-//     // // Apply servings parameter
-//     // if (servings) {
-//     //   recipesRef = query(recipesRef, where("servings", "==", servings));
-//     // }
-
-//     getDocs(recipesRef)
-//       .then((snapshot) => {
-//         const results = snapshot.docs.map((doc) => doc.data());
-//         // const filteredResults = results.filter((recipe) =>
-//         //   recipe.name.toLowerCase().includes(searchLowerCase)
-//         // );
-//         // console.log(snapshot.docs);
-//         dispatch(filterRecipes(results));
-//       })
-//       .catch((error) => {
-//         console.error("Error getting recipes:", error);
-//       });
-//   }, [location.search, dispatch]);
-
-//   useEffect(() => {
-//     dispatch(setSearchParam(""));
-//   }, [dispatch]);
-
-//   const [filterState, setFilterState] = useState(false);
-//   const handleFilterState = (data) => {
-//     setFilterState(data);
-//   };
-
-//   return (
-//     <>
-//       <Navbar />
-//       <PageLayout>
-//         <Filter filterData={handleFilterState} />
-//         {/* <Filter /> */}
-//         <ContentLayout>
-//           {recipes.filtered.length > 0 ? (
-//             <RecipesContainer
-//               filterProp={filterState}
-//               searchedRecipes={recipes.filtered}
-//             />
-//           ) : (
-//             <div style={{ marginTop: "200px" }}>
-//               Nijesmo nasli nista za tu pretragu.
-//             </div>
-//           )}
-//         </ContentLayout>
-//       </PageLayout>
-//     </>
-//   );
-// };

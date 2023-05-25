@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { auth, db } from "../firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setCurrentUser,
   //   setError,
@@ -11,7 +11,8 @@ import {
 } from "../store/reducers/authSlice";
 
 export const useCurrentUser = () => {
-  const [curr, setCurr] = useState(null);
+  const current = useSelector((state) => state.auth.currentUser);
+  const [curr, setCurr] = useState(undefined);
   const dispatch = useDispatch();
 
   useEffect(
@@ -33,7 +34,9 @@ export const useCurrentUser = () => {
   );
 
   useEffect(() => {
+    // console.log(`aaa`);
     dispatch(setCurrentUser(curr));
-    console.log(auth?.currentUser, "user uid ");
+    // console.log(auth?.currentUser, "auth?.currentUser ");
+    // console.log(curr);
   }, [curr]);
 };

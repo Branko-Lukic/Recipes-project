@@ -36,6 +36,11 @@ export const Recipe = () => {
       });
   }, [location.search]);
 
+  const style = {
+    marginTop: "250px",
+    textAlign: "center",
+  };
+
   return (
     <>
       <Navbar />
@@ -43,8 +48,8 @@ export const Recipe = () => {
         <Filter />
         <ContentLayout>
           {loading ? (
-            <div style={{ marginTop: "200px" }}>
-              <ClipLoader color="#36d7b7" />
+            <div style={style}>
+              <ClipLoader size={80} color="red" />
             </div>
           ) : (
             <SingleRecipe selectedRecipe={selectedRecipe}></SingleRecipe>

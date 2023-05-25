@@ -19,10 +19,6 @@ export const Sidebar = () => {
 
   useCurrentUser();
 
-  // const logout = () => {
-  //   return signOut(auth).then(() => dispatch(setCurrentUser(null)));
-  // };
-
   const handleLogoutBtnClick = () => {
     signOut(auth).then((_) => dispatch(setCurrentUser(null)));
     navigate("/");

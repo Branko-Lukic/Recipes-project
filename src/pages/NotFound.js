@@ -1,5 +1,5 @@
 import React from "react";
-import { BiError } from "react-icons/bi";
+import { TbMoodSadDizzy } from "react-icons/tb";
 import { BackToHome } from "../components/common/backToHome";
 
 export const NotFound = () => {
@@ -22,7 +22,7 @@ export const NotFound = () => {
       <BackToHome />
 
       <div style={text}>
-        Page not found <BiError style={icon} />
+        Page not found <TbMoodSadDizzy style={icon} />
       </div>
     </div>
   );

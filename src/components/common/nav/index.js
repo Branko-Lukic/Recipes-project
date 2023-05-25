@@ -11,8 +11,8 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth.currentUser);
-  // const currentUser=useSelector(state=>state.auth.currentUser)
-  console.log(auth?.currentUser);
+
+  // console.log(auth?.currentUser);
   return (
     <nav>
       <div className={styles.container}>
@@ -22,13 +22,9 @@ const Navbar = () => {
         </h1>
         <SearchBar />
         <div className={styles.logInReg}>
-          {/* <span onClick={() => navigate(`/signup`)}>
-            <h4>Sign up</h4>{" "}
-          </span>
-          <span onClick={() => navigate(`/login`)}>
-            <h4>Login</h4>
-          </span> */}
-          {auth?.currentUser ? (
+          {currentUser === undefined ? (
+            ""
+          ) : auth?.currentUser ? (
             <span onClick={() => navigate(`/profile/overview`)}>
               <h4>
                 <FaRegUser className={styles.user} /> {currentUser?.username}
@@ -47,6 +43,34 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+
+    // <nav>
+    //   <div className={styles.container}>
+    //     <h1 onClick={() => navigate(`/`)}>
+    //       <MdFoodBank className={styles.logo} />
+    //       GoodFood
+    //     </h1>
+    //     <SearchBar />
+    //     <div className={styles.logInReg}>
+    //       {currentUser ? (
+    //         <span onClick={() => navigate(`/profile/overview`)}>
+    //           <h4>
+    //             <FaRegUser className={styles.user} /> {currentUser?.username}
+    //           </h4>
+    //         </span>
+    //       ) : (
+    //         <>
+    //           <span onClick={() => navigate(`/signup`)}>
+    //             <h4>Sign up</h4>
+    //           </span>
+    //           <span onClick={() => navigate(`/login`)}>
+    //             <h4>Login</h4>
+    //           </span>
+    //         </>
+    //       )}
+    //     </div>
+    //   </div>
+    // </nav>
   );
 };
 

@@ -13,7 +13,7 @@ export const RecipePreview = ({ name, id, addedBy, time, imgURL }) => {
   const [isAddedToFav, setIsAddedToFav] = useState(false);
   const currentUser = useSelector((state) => state.auth.currentUser);
   const favourites = currentUser?.favourites;
-  // console.log(favourites);
+  console.log(favourites);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -35,10 +35,14 @@ export const RecipePreview = ({ name, id, addedBy, time, imgURL }) => {
 
   return (
     <div className={styles.containerr}>
-      <FiHeart
-        className={`${styles.favBtn} ${toggleFavBtn}`}
-        onClick={handleClick}
-      />
+      {auth?.currentUser ? (
+        <FiHeart
+          className={`${styles.favBtn} ${toggleFavBtn}`}
+          onClick={handleClick}
+        />
+      ) : (
+        ""
+      )}
       <div
         onClick={() => navigate(`/recipe?recipeId=${id}`)}
         className={styles.container}

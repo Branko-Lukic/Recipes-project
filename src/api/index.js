@@ -20,18 +20,28 @@ export const getAllRecipes = () =>
   );
 
 export const getRecipesByName = (value) =>
-  getDocs(recipesCollectionRef)
-    .then((data) => data.docs.map((doc) => ({ ...doc.data() })))
-    .then((res) =>
-      res.filter((recipe) => {
-        return (
-          value &&
-          recipe &&
-          recipe.name &&
-          recipe.name.toLowerCase().includes(value.toLowerCase())
-        );
-      })
-    );
+  getAllRecipes().then((res) =>
+    res.filter((recipe) => {
+      return (
+        value &&
+        recipe &&
+        recipe.name &&
+        recipe.name.toLowerCase().includes(value.toLowerCase())
+      );
+    })
+  );
+
+export const getFavouriteRecipes = (favIds) => {
+  return getAllRecipes().then((recipes) => {
+    return recipes.filter((recipe) => favIds?.includes(recipe.id));
+  });
+};
+
+export const getAddedRecipes = (addedIds) => {
+  return getAllRecipes().then((recipes) => {
+    return recipes.filter((recipe) => addedIds?.includes(recipe.id));
+  });
+};
 
 export const getFilteredRecipe = (
   search,

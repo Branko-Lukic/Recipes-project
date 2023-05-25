@@ -34,8 +34,6 @@ function SearchBar() {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    console.log(filterQueryString);
-
     navigate(
       `/?search=${input}${filterQueryString && `&${filterQueryString}`}`
     );
@@ -75,7 +73,7 @@ function SearchBar() {
       {showResults && (
         <div className={styles.resultsList}>
           {results.length === 0 && input && !loading ? (
-            <div>Nema trazenog jela.</div>
+            <div>No results matching your search.</div>
           ) : (
             results.map((result, id) => {
               return (

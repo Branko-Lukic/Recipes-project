@@ -76,14 +76,8 @@ export const SignUp = () => {
         dispatch(finishLoading());
         dispatch(setError(err.message)); //'Failed to create an account'
       });
-    // useCurrentUser();
-    // console.log(currentUser);
-    // console.log(error);
   };
 
-  // const logout = () => {
-  //   return signOut(auth).then(() => dispatch(setCurrentUser(null)));
-  // };
   return (
     <>
       <BackToHome />
@@ -123,7 +117,7 @@ export const SignUp = () => {
                   type="submit"
                   className="w-100 "
                   style={{
-                    background: "red",
+                    background: "rgba(99, 197, 132, 255)",
                     border: "none",
                   }}
                   onClick={handleSubmit}
