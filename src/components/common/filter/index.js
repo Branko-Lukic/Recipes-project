@@ -22,6 +22,7 @@ export const Filter = ({ filterData }) => {
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [selectedServings, setSelectedServings] = useState("");
+  const [filterButtonDisabled, setFilterButtonDisabled] = useState("");
 
   const ingTagRef = useRef();
   const timeRef = useRef();
@@ -70,6 +71,22 @@ export const Filter = ({ filterData }) => {
     servRef.current.resetSelectedValues();
   };
 
+  useEffect(() => {
+    console.log(selectedIngTags);
+    setFilterButtonDisabled(
+      () =>
+        selectedIngTags.length === 0 &&
+        !selectedTime &&
+        !selectedDifficulty &&
+        !selectedServings
+    );
+  }, [
+    selectedIngTags.length,
+    selectedTime,
+    selectedDifficulty,
+    selectedServings,
+  ]);
+
   const handleSearchBtn = () => {
     const params = {
       ings: selectedIngTags.join(","),
@@ -113,8 +130,11 @@ export const Filter = ({ filterData }) => {
             closeOnSelect={false}
             selectionLimit="5"
             ref={ingTagRef}
+            onRemove={(e) => {
+              setSelectedIngTags([...e]);
+            }}
             onSelect={(e) => {
-              setSelectedIngTags(e);
+              setSelectedIngTags([...e]);
             }}
             style={{
               chips: {
@@ -129,7 +149,6 @@ export const Filter = ({ filterData }) => {
                 borderBottom: "2px solid rgb(150,150,150)",
                 borderRadius: "0px",
               },
-
               optionContainer: {
                 maxHeight: "120px",
                 borderTop: "none",
@@ -274,12 +293,7 @@ export const Filter = ({ filterData }) => {
           <button
             className={styles.filterBtn}
             onClick={handleSearchBtn}
-            disabled={
-              selectedIngTags.length === 0 &&
-              !selectedTime &&
-              !selectedDifficulty &&
-              !selectedServings
-            }
+            disabled={filterButtonDisabled}
           >
             Filter
           </button>
