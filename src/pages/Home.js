@@ -19,7 +19,6 @@ export const Home = () => {
   const queryParams = new URLSearchParams(location.search);
 
   const user = useSelector((state) => state.auth.currentUser);
-  // console.log(user);
 
   const style = {
     marginTop: "250px",
@@ -38,7 +37,6 @@ export const Home = () => {
     getFilteredRecipe(search, ingTags, time, difficulty, servings).then(
       (recipes) => {
         dispatch(filterRecipes(recipes));
-        // console.log(recipes);
       }
     );
   }, [location.search]);
@@ -47,12 +45,10 @@ export const Home = () => {
     dispatch(setSearchParam(""));
   }, []);
 
-  //...............
   const [filterState, setFilterState] = useState(false);
   const handleFilterState = (data) => {
     setFilterState(data);
   };
-  // console.log(filterState);
 
   return (
     <>
@@ -84,36 +80,6 @@ export const Home = () => {
           )}
         </ContentLayout>
       </PageLayout>
-
-      {/* <Navbar />
-      <PageLayout>
-        <Filter filterData={handleFilterState} />
-        <ContentLayout>
-          {user === undefined ? "" : <WelcomeMessage />}
-          {recipes.filtered.length > 0 ? (
-            <RecipesContainer
-              filterProp={filterState}
-              searchedRecipes={recipes.filtered}
-            />
-          ) : (
-            // : user === undefined ? (
-            //   <div style={style}>
-            //     <ClipLoader size={80} color="red" />
-            //   </div>
-            // )
-            <div
-              style={{
-                fontSize: "3rem",
-                fontWeight: "bold",
-                marginTop: "150px",
-                marginLeft: "400px",
-              }}
-            >
-              No recipes <MdSearchOff style={{ fontSize: "4rem" }} />
-            </div>
-          )}
-        </ContentLayout>
-      </PageLayout> */}
     </>
   );
 };

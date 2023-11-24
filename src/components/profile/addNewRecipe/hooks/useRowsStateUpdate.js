@@ -6,10 +6,6 @@ export const useRowsStateUpdate = () => {
   const [ingTags, setIngTags] = useState([]);
   const [prepSteps, setPrepSteps] = useState([]);
 
-  // const ingsText = ings.map((ing) => ing.text);
-  // const ingTagsText = ingTags.map((ingTag) => ingTag.text);
-  // const prepStepsText = prepSteps.map((prepStep) => prepStep.text);
-
   const rowsStateUpdate = (rowType, id, e) => {
     switch (rowType) {
       case "INGS":

@@ -10,7 +10,6 @@ import {
 } from "firebase/firestore";
 
 const recipesCollectionRef = collection(db, "recipes");
-// const usersCollectionRef = collection(db, "users");
 
 export const getAllRecipes = () =>
   getDocs(recipesCollectionRef).then((data) =>
@@ -56,14 +55,11 @@ export const getFilteredRecipe = (
         ? allRecipes
         : allRecipes.filter((recipe) => {
             return (
-              search &&
-              recipe &&
-              recipe.name.toLowerCase().includes(search.toLowerCase())
+              recipe && recipe.name.toLowerCase().includes(search.toLowerCase())
             );
           })
     )
     .then((recipes) => {
-      // console.log(recipes, "ING TAGS");
       return ingTags === undefined
         ? recipes
         : recipes.filter((recipe) =>
@@ -71,7 +67,6 @@ export const getFilteredRecipe = (
           );
     })
     .then((recipes) => {
-      // console.log(recipes, "tTIME");
       return !time
         ? recipes
         : recipes.filter((recipe) =>
@@ -87,14 +82,11 @@ export const getFilteredRecipe = (
           );
     })
     .then((recipes) => {
-      // console.log(recipes, "DIFFICULTY");
       return !difficulty
         ? recipes
         : recipes.filter((recipe) => recipe.difficulty === difficulty);
     })
     .then((recipes) => {
-      // console.log(recipes, "SERVINGS");
-      // console.log(servings);
       return !servings
         ? recipes
         : recipes.filter((recipe) =>
@@ -120,10 +112,11 @@ export const getRecipeById = (id) => {
   return getDoc(recipeDocumentRef).then((doc) => doc.data());
 };
 
+//ovo probaj bolje na svom primeru (deluje mi da ni flatMap ne treba al vrv treba cim smo tako radili)
 export const getIngredientTags = () => {
   return getDocs(recipesCollectionRef)
-    .then((data) => data.docs.map((doc) => ({ ...doc.data().ingTags })))
-    .then((res) => [...new Set(res.flatMap((item) => Object.values(item)))]);
+    .then((data) => data.docs.map((doc) => ({ ...doc.data().ingTags }))) //data su recipes a doc je recipe zar ne? izgleda da ne. Izgleda da je ovakva sintaksa zbog ovog docs
+    .then((res) => [...new Set(res.flatMap((item) => Object.values(item)))]); //sto smo gore pravili niz objekata a niz nizova? deluje lakse da je bio niz nizova TO SU VEC BILI OBJEKTI IZGLEDA
 };
 
 export const createNewRecipe = (
@@ -178,7 +171,6 @@ export const increaseTimesFavoured = (recipeId) => {
 
   return getDoc(recipeRef)
     .then((doc) => {
-      console.log(doc.data());
       return doc.data();
     })
     .then((recipe) =>
@@ -202,7 +194,7 @@ export const decreaseTimesFavoured = (recipeId) => {
 };
 
 export const toggleFavourites = (userUid, recipeId) => {
-  const userRef = doc(db, `users`, userUid);
+  const userRef = doc(db, `users`, userUid); //ova promenljiva moze da bude globalna jer se koristi 2 puta bar
   return getDoc(userRef)
     .then((doc) => doc.data())
     .then((userData) => {
@@ -223,11 +215,13 @@ export const toggleFavourites = (userUid, recipeId) => {
 };
 
 export const deleteRecipe = (recipeId, userUid) => {
-  const recipeRef = doc(db, `recipes`, recipeId);
+  const recipeRef = doc(db, `recipes`, recipeId); //ova promenljiva moze da bude globalna jer se koristi 2 puta bar
   deleteDoc(recipeRef);
 
-  //deleting from user.added                                           ovo moze sa onim gore da bude jedan poziv
   const userRef = doc(db, `users`, userUid);
+
+  //deleting from user.added                                           ovo moze sa onim gore da bude jedan poziv
+
   getDoc(userRef)
     .then((doc) => doc.data())
     .then((user) =>

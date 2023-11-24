@@ -7,13 +7,11 @@ import { FiHeart } from "react-icons/fi";
 import { toggleFavourites } from "../../../api";
 import { useSelector, useDispatch } from "react-redux";
 import { setFavourites } from "../../../store/reducers/authSlice";
-import { setTimesFavoured } from "../../../store/reducers/recipesSlice";
 
 export const RecipePreview = ({ name, id, addedBy, time, imgURL }) => {
   const [isAddedToFav, setIsAddedToFav] = useState(false);
   const currentUser = useSelector((state) => state.auth.currentUser);
   const favourites = currentUser?.favourites;
-  console.log(favourites);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -26,9 +24,6 @@ export const RecipePreview = ({ name, id, addedBy, time, imgURL }) => {
       dispatch(setFavourites(id))
     );
     setIsAddedToFav((prev) => !prev);
-    // isAddedToFav
-    //   ? dispatch(setTimesFavoured("DECREASE"))
-    //   : dispatch(setTimesFavoured("INCREASE"));
   };
 
   const toggleFavBtn = isAddedToFav ? `${styles.addedToFav}` : ``;

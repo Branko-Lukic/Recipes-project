@@ -25,34 +25,36 @@ export const Sidebar = () => {
   };
 
   return (
-    <div className={styles.sidebar}>
-      <div className={styles.user}>
-        <img src={UserImg} alt="userImg" className={styles.img} />
-        <div>{currentUser?.username}</div>
-      </div>
+    currentUser && (
+      <div className={styles.sidebar}>
+        <div className={styles.user}>
+          <img src={UserImg} alt="userImg" className={styles.img} />
+          <div>{currentUser?.username}</div>
+        </div>
 
-      <div
-        className={`${styles.link} ${
-          path == "overview" ? styles.selected : ""
-        } ${path == "overview" ? styles.whiteText : styles.redText} `}
-        onClick={() => navigate("/profile/overview")}
-      >
-        Overview
+        <div
+          className={`${styles.link} ${
+            path == "overview" ? styles.selected : ""
+          } ${path == "overview" ? styles.whiteText : styles.redText} `}
+          onClick={() => navigate("/profile/overview")}
+        >
+          Overview
+        </div>
+        <div
+          className={`${styles.link} ${
+            path == "add-new-recipe" ? styles.selected : ""
+          } ${path == "add-new-recipe" ? styles.whiteText : styles.redText}`}
+          onClick={() => navigate("/profile/add-new-recipe")}
+        >
+          Add new recipe
+        </div>
+        <div
+          className={`${styles.link} ${styles.redText}`}
+          onClick={handleLogoutBtnClick}
+        >
+          Logout
+        </div>
       </div>
-      <div
-        className={`${styles.link} ${
-          path == "add-new-recipe" ? styles.selected : ""
-        } ${path == "add-new-recipe" ? styles.whiteText : styles.redText}`}
-        onClick={() => navigate("/profile/add-new-recipe")}
-      >
-        Add new recipe
-      </div>
-      <div
-        className={`${styles.link} ${styles.redText}`}
-        onClick={handleLogoutBtnClick}
-      >
-        Logout
-      </div>
-    </div>
+    )
   );
 };
